@@ -1,26 +1,26 @@
-const Signup = require("../model/schema")
 const express = require("express")
 const router = express.Router();
+const Signup = require("../model/schema")
 
-router.get("/users",(req,res)=>{
+router.get("/users",(req,res,next)=>{
     Signup.find().then((result)=>{
      res.send(result)
     })
 });
-router.get("/users/:email",(req,res)=>{
+router.get("/users/:email",(req,res,next)=>{
     Signup.find({email:req.params.email}).then((result)=>{
         res.send(result)})
 })
 
 
 
-router.post('/users',function(req,res){
-    console.log(req.body)
+router.post('/users',function(req,res,next){    
+    
     Signup.create(req.body).then(function(schema){
      res.send(schema);
-     res.end();
-     });
-    });
+     }).catch(next)
+})
+    
 
 
 
